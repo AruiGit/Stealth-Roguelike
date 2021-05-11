@@ -23,7 +23,6 @@ public class CharacterControler : MonoBehaviour
 
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        Debug.Log(angle);
         fov.SetAimDirection(angle);
     }
 
