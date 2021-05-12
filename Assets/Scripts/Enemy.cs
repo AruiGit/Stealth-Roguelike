@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     private Vector3 lastKnowPlayerPosition;
     public Transform targetPosition;
+    private Vector3 dir;
 
     bool wasPlayerSeen = false;
 
@@ -39,17 +40,17 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        fieldofview.SetAimDirection(lookingAngle);
+        fieldofview.SetAimDirection(GetEnemyDirection());
         fieldofview.SetFoV(fov);
         fieldofview.SetViewDistance(viewDistance);
         fieldofview.SetOrigin(transform.position);
-        
-        
+
+        FindPlayer();
     }
 
     private void FindPlayer()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) <= viewDistance)
+        if(fieldofview.IsLookingAtPlayer()==true)
          {
             Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
             //if(Vector3.Angle(transform.position, directionToPlayer) < fov)
@@ -116,11 +117,21 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+        dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
         Vector3 velocity = dir * speed;
         transform.position += velocity * Time.deltaTime;
 
 
+
+    }
+
+    Vector3 GetEnemyDirection()
+    {
+        if (dir != null)
+        {
+            return dir;
+        }
+        else return Vector3.zero;
 
     }
 

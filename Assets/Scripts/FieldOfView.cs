@@ -57,6 +57,7 @@ public class FieldOfView : MonoBehaviour
                         targetingPlayer = true;
                         Debug.Log("Patrze na gracza");
                     }
+                    else targetingPlayer = false;
                 }
             }
             else
@@ -66,7 +67,7 @@ public class FieldOfView : MonoBehaviour
 
                 if (raycastHit2DPlayer.collider != null)
                 {
-                    
+
 
                     if (raycastHit2DPlayer.transform.tag == "Player")
                     {
@@ -77,8 +78,10 @@ public class FieldOfView : MonoBehaviour
                             targetingPlayer = true;
                             Debug.Log("Patrze na gracza");
                         }
-                        
+                        else targetingPlayer = false;
+
                     }
+                    else targetingPlayer = false;
                 }
 
             }
@@ -130,6 +133,11 @@ public class FieldOfView : MonoBehaviour
         startingAngle = angle + fov / 2f;
     }
 
+    public void SetAimDirection(Vector3 angle)
+    {
+        startingAngle = AngleFromVector(angle)+ fov/2f;
+    }
+
     public void SetFoV(float fov)
     {
         this.fov = fov;
@@ -138,6 +146,11 @@ public class FieldOfView : MonoBehaviour
     public void SetViewDistance(float ViewDistance)
     {
         this.viewDistance = ViewDistance;
+    }
+
+    public bool IsLookingAtPlayer()
+    {
+        return targetingPlayer;
     }
 }
 
