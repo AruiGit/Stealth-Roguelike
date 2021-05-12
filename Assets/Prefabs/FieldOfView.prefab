@@ -48,6 +48,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 262144
+  layerMask2:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!33 &2821891044528481634
 MeshFilter:
   m_ObjectHideFlags: 0

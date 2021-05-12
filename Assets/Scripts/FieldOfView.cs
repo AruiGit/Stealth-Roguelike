@@ -6,12 +6,18 @@ public class FieldOfView : MonoBehaviour
 {
     [SerializeField]
     LayerMask layerMask;
+    [SerializeField]
+    LayerMask layerMask2;
     private Mesh mesh;
     Vector3 origin = Vector3.zero;
     private float startingAngle;
     private float fov;
     private float viewDistance;
     int rayCount = 50;
+
+    private float distanceToPlayer, distanceToObejctive;
+
+    private bool targetingPlayer = false;
     private void Start()
     {
         mesh = new Mesh();
@@ -39,14 +45,44 @@ public class FieldOfView : MonoBehaviour
         {
             Vector3 vertex;
             RaycastHit2D raycastHit2D = Physics2D.Raycast(origin, VectorFromAngle(angle), viewDistance, layerMask);
+            RaycastHit2D raycastHit2DPlayer = Physics2D.Raycast(origin, VectorFromAngle(angle), viewDistance, layerMask2);
             if (raycastHit2D.collider == null)
             {
                 vertex = origin + VectorFromAngle(angle) * viewDistance;
+                if (raycastHit2DPlayer.collider != null)
+                {
+
+                    if (raycastHit2DPlayer.transform.tag == "Player")
+                    {
+                        targetingPlayer = true;
+                        Debug.Log("Patrze na gracza");
+                    }
+                }
             }
             else
             {
+
                 vertex = raycastHit2D.point;
+
+                if (raycastHit2DPlayer.collider != null)
+                {
+                    
+
+                    if (raycastHit2DPlayer.transform.tag == "Player")
+                    {
+                        distanceToObejctive = Vector3.Distance(origin, vertex);
+                        distanceToPlayer = Vector3.Distance(origin, raycastHit2DPlayer.point);
+                        if (distanceToObejctive > distanceToPlayer)
+                        {
+                            targetingPlayer = true;
+                            Debug.Log("Patrze na gracza");
+                        }
+                        
+                    }
+                }
+
             }
+
             vertices[vertexIndex] = vertex;
 
             if (i > 0)

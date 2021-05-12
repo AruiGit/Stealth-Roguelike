@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
         fieldofview.SetViewDistance(viewDistance);
         fieldofview.SetOrigin(transform.position);
         
-        FindPlayer();
+        
     }
 
     private void FindPlayer()
@@ -52,12 +52,12 @@ public class Enemy : MonoBehaviour
         if(Vector3.Distance(transform.position, player.transform.position) <= viewDistance)
          {
             Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
-            if(Vector3.Angle(transform.position, directionToPlayer) < fov)
-            {
+            //if(Vector3.Angle(transform.position, directionToPlayer) < fov)
+            //{
                 lastKnowPlayerPosition = player.transform.position;
                 MoveTowardsPlayer(player.transform.position);
                 wasPlayerSeen = true;
-            }
+            //}
             
          }
           else if (wasPlayerSeen == true && Vector3.Distance(transform.position, player.transform.position) > viewDistance)
@@ -123,4 +123,6 @@ public class Enemy : MonoBehaviour
 
 
     }
+
+    
 }
