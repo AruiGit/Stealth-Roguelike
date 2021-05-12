@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float speed = 0.05f;
 
     private GameObject player;
-    private Transform playerTransform;
     private Vector3 lastKnowPlayerPosition;
     public Transform targetPosition;
 
@@ -36,7 +35,6 @@ public class Enemy : MonoBehaviour
         fieldofview.SetOrigin(transform.position);
         player = GameObject.Find("Player_Character");
         seeker = GetComponent<Seeker>();
-        playerTransform = player.GetComponent<Transform>();
     }
 
     private void Update()
@@ -45,30 +43,28 @@ public class Enemy : MonoBehaviour
         fieldofview.SetFoV(fov);
         fieldofview.SetViewDistance(viewDistance);
         fieldofview.SetOrigin(transform.position);
-
-       FindPlayer();
-    }
-
-
-    private void AttackPlayer()
-    {// transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-
-
+        
+        FindPlayer();
     }
 
     private void FindPlayer()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) < viewDistance)
-        {
-            lastKnowPlayerPosition = player.transform.position;
-            MoveTowardsPlayer(player.transform.position);
-            wasPlayerSeen = true;
-        }
-        else if (wasPlayerSeen == true)
-        {
-            MoveTowardsPlayer(lastKnowPlayerPosition);
-            //MoveToStartingPosition after end of path
-        }
+        if(Vector3.Distance(transform.position, player.transform.position) <= viewDistance)
+         {
+            Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+            if(Vector3.Angle(transform.position, directionToPlayer) < fov)
+            {
+                lastKnowPlayerPosition = player.transform.position;
+                MoveTowardsPlayer(player.transform.position);
+                wasPlayerSeen = true;
+            }
+            
+         }
+          else if (wasPlayerSeen == true && Vector3.Distance(transform.position, player.transform.position) > viewDistance)
+          {
+              MoveTowardsPlayer(lastKnowPlayerPosition);
+              //MoveToStartingPosition after end of path
+          }
     }
 
     public void OnPathComplete(Path p)
