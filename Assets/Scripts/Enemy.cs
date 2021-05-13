@@ -163,7 +163,7 @@ public class Enemy : MonoBehaviour
     {
         for (int i = 0; i < invokeCount; i++)
         {
-            fieldOfView.SetAimDirection(i);
+            fieldOfView.SetAimDirection(GetEnemyDirection(),i);
             Debug.Log(i);
 
             yield return new WaitForSeconds(interval);
