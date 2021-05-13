@@ -282,7 +282,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f49d5e5996e16c1439284332eb91b57c, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0.8352941}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1269,6 +1269,39 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912198894}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &987186436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 987186437}
+  m_Layer: 0
+  m_Name: Patrol Points
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &987186437
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987186436}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1420522064}
+  - {fileID: 1555583528}
+  - {fileID: 1241000542}
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1039666818
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1558,6 +1591,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 249363747}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1241000541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1241000542}
+  m_Layer: 0
+  m_Name: Patrol_Point_3_Enemy1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1241000542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241000541}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.061, y: 0.936, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 987186437}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1250712707 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6748027138217461385, guid: 42195ccf2dc1db1449b0bd6aa36f56f5,
@@ -1913,6 +1976,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 862773672}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1420522063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1420522064}
+  m_Layer: 0
+  m_Name: Patrol_Point_1_Enemy1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1420522064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420522063}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.522, y: 0.039, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 987186437}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1458003814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,7 +2037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAIIew5fZrjUgIAAPgEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF9VE1v2zAM/SuBzkthp03b7LYlabpD2qDp0IsvjEXHQmTJkOTmo8h/HyXbsZcBO1kmH8nHR0pfTChbYuq0WRjBl5oj+z5g/sy+DTrnMx5gq9VanLDFfAjucg+CgHkDJzTZYx9mdYHOiPSH2koPjshYKZFpU8z5FqfaOkvmDKRFchntfLQi09eAHegznPiQI51GD/50otMkGpzpmKJyaDpoC2xhw3GAVSqVUJTIPecOHbfwuIYp6qZBRDfR2OfXUgrbsGHuWIZu12WOBn27XAA1FxhENz4gR7HNnafaj37NMouu4WXgOBOGVKrTsp+6lq4Au6u5fYKsfKHR/Si+uwvU6rzLfyC1DJnRxXNbOY58FZeLdPcGxxSs66nbN8868nEQaQ9yBxuJHzmqF70wulK8F1tZHM3o35kK+91Nc0x3nb2m2hovweV/phQPzuegwGEqRbFpXPS7lrpsdwYNjecX8Q3rYTur5/Db4jts+3vUOJ6EsY5cTZPKk9voyngomwfJfC+Vm2qjMJibPkpUIN1xRWnc9QyvfL2yV54n8DemKd742otwFRLMHT6Krlwrvb/MyuZ6v0Sbv1ZOCoUdae94IZ2mWql6xfqatGHrymSQ9sK2leB/LxbLHjfjeAK3kKaTGEYwjKPxAzzeckTYPN7HDyysnlDUJ8hVTbSRh4amuuSK1qx9SAYLA2VYd25gvxCnQvckFyrT69Qgqtc6w4U4GipCV5PPuSCB1uicUGHe7CthUqc75MklURI6nR+cgaTLkrBSfGrnLQmbhpcjYWd2/gNQSwMEFAAACAgAAAgh7BGAxBZtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTVUVBKL0osyCgGihiCOKWZKSB2tFKaRZKpoWWicWJysqVholGirqGBqXmihXFKampikoWZoblSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAgh7Dl9muNSAgAA+AQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7BGAxBZtAAAAeAAAAAkAJAAAAAAAAAAAAAAAnwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABXAwAAAAA=
+    dataString: UEsDBBQAAAgIAAAIIezenjIaUgIAAPgEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF9VE1v2zAM/SuBzkthp03b7LalabpDP9B06MUXRqJjIbJkSHKTtMh/HyXbsZcBO1kmH8nHR0pfTGpXIffGLq0Uj0Yg+z5i4cy+jXrnA+5hY/RKfmKHeZfCFwEEEfMKXhqypyHMmRK9lfyH3qgATshYa5kbWy7EBufGeUfmHJRDclnjQ7Qm09eI7ekznoWQA50mN+H0SadZMjrSkaP2aHtoB+xg42mE1ZorKCsUgXOPTqctPG1gmrppEclFEpzcKCVdy4b5QxW7XVUFWgztCgnUXGSQXISAAuWm8IHqMPo5zx36lpeFw520pFKTlv00jXQluG3D7QNUHQpNrifp1VWk1uR9/AfSyJBbUz50ldMkVPGF5NtXOHBwfqDu0HzXk0+jSDtQW1grfC9QP5mlNbUWg9ja4eSO/r2tcdjdvEC+7e0N1c54Cq7+M6V0dDxGBfZzJct166LflTJVtzNoaTy/iG9cD9dbA4ffDt9gM9yj1nEvrfPkapvUgdza1DZA2SJKFnqp/dxYjdHc9lGhBuUPL5TGn8/wzDcoe+a5h3Bj2uKtr7sIZyHR3OOT5Mz1YnanWbnC7B7RFc+1V1JjTzo4nkinudG6WbGhJl3YqrY58EHYppbi78Vi+e16ms7gEjifpTCBcZpMb+D2UiDC+vY6vWFx9aSmPkG9NERbeWhouk+uac26h2S0tFDFdRcWdkv5WZqB5FLnZsUton5uMpyIo6UidDXFQkgSaIXeSx3nzb4ypgzfoshOibLY6WLvLWR9loxV8sP4YMnYPL4cGTuy4x9QSwMEFAAACAgAAAgh7BGAxBZtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTVUVBKL0osyCgGihiCOKWZKSB2tFKaRZKpoWWicWJysqVholGirqGBqXmihXFKampikoWZoblSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAgh7N6eMhpSAgAA+AQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7BGAxBZtAAAAeAAAAAkAJAAAAAAAAAAAAAAAnwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABXAwAAAAA=
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -2136,7 +2229,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1459861449}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.85, y: 0.337, z: -5}
+  m_LocalPosition: {x: 2.874, y: 0.04, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 912198895}
@@ -2160,10 +2253,14 @@ MonoBehaviour:
   lookingAngle: 90
   fov: 90
   viewDistance: 2
+  followingViewDistance: 5
   speed: 0.5
   targetPosition: {fileID: 1270681780}
+  PatrolPoints:
+  - {fileID: 1420522064}
+  - {fileID: 1555583528}
+  - {fileID: 1241000542}
   nextWaypointDistance: 0.05
-  reachedEndOfPath: 0
 --- !u!114 &1459861454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2296,6 +2393,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1287764301}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1555583527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1555583528}
+  m_Layer: 0
+  m_Name: 'Patrol_Point_2_Enemy1 '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1555583528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555583527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.061, y: 0.039, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 987186437}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1566392035 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6748027138217461385, guid: 42195ccf2dc1db1449b0bd6aa36f56f5,

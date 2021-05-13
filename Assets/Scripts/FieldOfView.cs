@@ -55,6 +55,7 @@ public class FieldOfView : MonoBehaviour
 
                     if (raycastHit2DPlayer.transform.tag == "Player")
                     {
+                        Debug.Log(raycastHit2DPlayer.transform.name);
                         targetingPlayer = true;
                         Debug.Log("Patrze na gracza");
                     }
@@ -78,6 +79,7 @@ public class FieldOfView : MonoBehaviour
                         distanceToPlayer = Vector3.Distance(origin, raycastHit2DPlayer.point);
                         if (distanceToObejctive > distanceToPlayer)
                         {
+                            
                             targetingPlayer = true;
                             Debug.Log("Patrze na gracza");
                         }
