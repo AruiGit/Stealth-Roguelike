@@ -13,6 +13,7 @@ public class FieldOfView : MonoBehaviour
     private float startingAngle;
     private float fov;
     private float viewDistance;
+    private float viewDistance2 = 5;
     int rayCount = 50;
 
     private float distanceToPlayer, distanceToObejctive;
@@ -45,7 +46,7 @@ public class FieldOfView : MonoBehaviour
         {
             Vector3 vertex;
             RaycastHit2D raycastHit2D = Physics2D.Raycast(origin, VectorFromAngle(angle), viewDistance, layerMask);
-            RaycastHit2D raycastHit2DPlayer = Physics2D.Raycast(origin, VectorFromAngle(angle), viewDistance, layerMask2);
+            RaycastHit2D raycastHit2DPlayer = Physics2D.Raycast(origin, VectorFromAngle(angle), viewDistance2, layerMask2);
             if (raycastHit2D.collider == null)
             {
                 vertex = origin + VectorFromAngle(angle) * viewDistance;
@@ -59,6 +60,8 @@ public class FieldOfView : MonoBehaviour
                     }
                     else targetingPlayer = false;
                 }
+                
+               
             }
             else
             {
@@ -136,6 +139,11 @@ public class FieldOfView : MonoBehaviour
     public void SetAimDirection(Vector3 angle)
     {
         startingAngle = AngleFromVector(angle)+ fov/2f;
+    }
+
+    public void SetAimDirection(Vector3 vecAngle, float angle)
+    {
+        startingAngle = AngleFromVector(vecAngle) + angle + fov / 2f;
     }
 
     public void SetFoV(float fov)
