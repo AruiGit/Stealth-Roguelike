@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         fieldofview = Instantiate(prefabFieldOfView, null).GetComponent<FieldOfView>();
+        fieldofview.tag = "Enemy";
         fieldofview.SetOrigin(transform.position);
         player = GameObject.Find("Player_Character");
         seeker = GetComponent<Seeker>();
@@ -61,27 +62,30 @@ public class Enemy : MonoBehaviour
         else ChangeViewDistance(viewDistance);
     }
 
-    private void FindPlayer()
-    {
-        if(fieldofview.IsLookingAtPlayer()==true)
-         {
-                lastKnowPlayerPosition = player.transform.position;
-                MoveTowardsPoint(player.transform.position);
-                wasPlayerSeen = true;
-
-         }
-          else if (wasPlayerSeen == true && fieldofview.IsLookingAtPlayer() == false)
+     private void FindPlayer()
+     {
+         if(fieldofview.IsLookingAtPlayer()==true)
           {
-              MoveTowardsPoint(lastKnowPlayerPosition);
-            if (reachedEndOfPath == true)
-            {
-                wasPlayerSeen = false;
-                isTurningAround = true;
-                StartCoroutine(LookAround(fieldofview, 0.01f, 360));
-                Debug.Log("Patrze naokoło");
-            }
+                 lastKnowPlayerPosition = player.transform.position;
+                 MoveTowardsPoint(player.transform.position);
+                 wasPlayerSeen = true;
+
           }
-    }
+           else if (wasPlayerSeen == true && fieldofview.IsLookingAtPlayer() == false)
+           {
+               MoveTowardsPoint(lastKnowPlayerPosition);
+             if (reachedEndOfPath == true)
+             {
+                 wasPlayerSeen = false;
+                 isTurningAround = true;
+                 StartCoroutine(LookAround(fieldofview, 0.01f, 360));
+                 Debug.Log("Patrze naokoło");
+             }
+           }
+     }
+
+  
+
 
     public void OnPathComplete(Path p)
     {
@@ -228,6 +232,7 @@ public class Enemy : MonoBehaviour
     {
         for (int i = 0; i < invokeCount; i++)
         {
+            if (fieldofview.IsLookingAtPlayer() == true) yield break;
             fieldOfView.SetAimDirection(GetEnemyDirection(),i);
             if (invokeCount - 1 == i) isTurningAround = false;
 

@@ -15,6 +15,7 @@ public class FieldOfView : MonoBehaviour
     private float viewDistance;
     private float viewDistance2 = 5;
     int rayCount = 50;
+    private bool sawPlayer, seeingPlayer;
 
     private float distanceToPlayer, distanceToObejctive;
 
@@ -28,11 +29,16 @@ public class FieldOfView : MonoBehaviour
     }
     private void LateUpdate()
     {
-
+        CheckFieldOfView();
         
+        
+    }
+
+  void CheckFieldOfView()
+    {
         float angle = startingAngle;
         float angleIncrease = fov / rayCount;
-        
+
 
         Vector3[] vertices = new Vector3[rayCount + 1 + 1];
         Vector2[] uv = new Vector2[vertices.Length];
@@ -45,48 +51,45 @@ public class FieldOfView : MonoBehaviour
         for (int i = 0; i <= rayCount; i++)
         {
             Vector3 vertex;
-            RaycastHit2D raycastHit2D = Physics2D.Raycast(origin, VectorFromAngle(angle), viewDistance, layerMask);
-            RaycastHit2D raycastHit2DPlayer = Physics2D.Raycast(origin, VectorFromAngle(angle), viewDistance2, layerMask2);
+            RaycastHit2D raycastHit2D;
+
+            if (this.gameObject.tag == "Enemy")
+            {
+                raycastHit2D = Physics2D.Raycast(origin, VectorFromAngle(angle), viewDistance, LayerMask.GetMask("Mask", "Objects"));
+            }
+            else
+            {
+                raycastHit2D = Physics2D.Raycast(origin, VectorFromAngle(angle), viewDistance, LayerMask.GetMask("Objects"));
+            }
+
+            RaycastHit2D raycastHit2DPlayer = Physics2D.Raycast(origin, VectorFromAngle(angle), viewDistance + 1, LayerMask.GetMask("Mask"));
             if (raycastHit2D.collider == null)
             {
                 vertex = origin + VectorFromAngle(angle) * viewDistance;
-                if (raycastHit2DPlayer.collider != null)
+
+                if (raycastHit2DPlayer.collider == null && sawPlayer == false)
+                {
+                    seeingPlayer = false;
+
+                }
+
+                if (raycastHit2DPlayer.collider != null && sawPlayer == true)
                 {
 
-                    if (raycastHit2DPlayer.transform.tag == "Player")
-                    {
-                        Debug.Log(raycastHit2DPlayer.transform.name);
-                        targetingPlayer = true;
-                        Debug.Log("Patrze na gracza");
-                    }
-                    else targetingPlayer = false;
+                    seeingPlayer = true;
+
                 }
-                
-               
+
+
             }
             else
             {
 
                 vertex = raycastHit2D.point;
-
-                if (raycastHit2DPlayer.collider != null)
+                if (raycastHit2D.transform.tag == "Player")
                 {
-
-
-                    if (raycastHit2DPlayer.transform.tag == "Player")
-                    {
-                        distanceToObejctive = Vector3.Distance(origin, vertex);
-                        distanceToPlayer = Vector3.Distance(origin, raycastHit2DPlayer.point);
-                        if (distanceToObejctive > distanceToPlayer)
-                        {
-                            
-                            targetingPlayer = true;
-                            Debug.Log("Patrze na gracza");
-                        }
-                        else targetingPlayer = false;
-
-                    }
-                    else targetingPlayer = false;
+                    sawPlayer = true;
+                    seeingPlayer = true;
                 }
 
             }
@@ -104,12 +107,22 @@ public class FieldOfView : MonoBehaviour
 
             vertexIndex++;
             angle -= angleIncrease;
+            if (i == rayCount)
+            {
+                sawPlayer = false;
+            }
+
+            
         }
 
         mesh.vertices = vertices;
         mesh.uv = uv;
         mesh.triangles = triangles;
         mesh.bounds = new Bounds(origin, Vector3.one * 1000f);
+        targetingPlayer = seeingPlayer;
+        sawPlayer = false;
+        seeingPlayer = false;
+
     }
 
 
