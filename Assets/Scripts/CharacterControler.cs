@@ -6,7 +6,7 @@ public class CharacterControler : MonoBehaviour
 {
 
     [SerializeField]
-    private FieldOfView fov;
+    private FieldOfView   fov;
 
     private float horizontal, vertical;
     float speed = 1f;
@@ -24,6 +24,11 @@ public class CharacterControler : MonoBehaviour
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         fov.SetAimDirection(angle);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Attack();
+        }
     }
 
     void Movement()
@@ -59,6 +64,12 @@ public class CharacterControler : MonoBehaviour
     {
         Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
         return worldPosition;
+    }
+
+    void Attack()
+    {
+        //attack animatiom
+        Debug.Log("Im Attacking");
     }
 
     public Vector3 GetPlayerPosition()

@@ -1518,12 +1518,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d41fd0caf672734b87189884e037e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 262144
-  layerMask2:
-    serializedVersion: 2
-    m_Bits: 262144
 --- !u!4 &1172044998
 Transform:
   m_ObjectHideFlags: 0
@@ -1640,6 +1634,7 @@ GameObject:
   - component: {fileID: 1270681778}
   - component: {fileID: 1270681781}
   - component: {fileID: 1270681782}
+  - component: {fileID: 1270681783}
   m_Layer: 16
   m_Name: Player_Character
   m_TagString: Player
@@ -1774,6 +1769,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1270681783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270681777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d3383f1f3d6e114583eb258e9edb688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1287764301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2139,7 +2146,7 @@ GameObject:
   - component: {fileID: 1459861454}
   m_Layer: 19
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2250,10 +2257,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabFieldOfView: {fileID: 2821891044528481644, guid: 07191eee8dbe9e345bfbf7d86e159aaa,
     type: 3}
-  lookingAngle: 90
   fov: 90
   viewDistance: 2
-  followingViewDistance: 5
+  followingViewDistance: 3
   speed: 0.5
   targetPosition: {fileID: 1270681780}
   PatrolPoints:

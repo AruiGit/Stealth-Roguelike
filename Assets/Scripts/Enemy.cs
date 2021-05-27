@@ -6,34 +6,38 @@ using Pathfinding;
 
 public class Enemy : MonoBehaviour
 {
+    //Field Of View variables
     [SerializeField] Transform prefabFieldOfView;
     FieldOfView fieldofview;
-
-    [SerializeField] private float lookingAngle = 0;
     [SerializeField] private float fov = 90;
     [SerializeField] private float viewDistance = 2f;
     [SerializeField] private float followingViewDistance = 5f;
     [SerializeField] private float speed = 0.05f;
-
-    private GameObject player;
     private Vector3 lastKnowPlayerPosition;
     public Transform targetPosition;
     private Vector3 dir;
-
     [SerializeField] private List<Transform> PatrolPoints = new List<Transform>();
     private int patrolWaypoint = 0;
     private bool isTurningAround = false;
-
     bool wasPlayerSeen = false;
-
     Seeker seeker;
-
     public float nextWaypointDistance = 0.07f;
-
     private int currentWaypoint = 0;
-
     bool reachedEndOfPath;
     public Path path;
+
+    //Player variables
+    private GameObject player;
+    private Player playerScript;
+
+    //Enemy statistic variables
+    private int healthPoints;
+    private int damage = 1;
+    private float attackRange = 0.2f;
+    private float attackSpeed = 1f;
+
+    private bool isAttacking=false;
+   
 
     private void Start()
     {
@@ -41,6 +45,7 @@ public class Enemy : MonoBehaviour
         fieldofview.tag = "Enemy";
         fieldofview.SetOrigin(transform.position);
         player = GameObject.Find("Player_Character");
+        playerScript = player.GetComponent<Player>();
         seeker = GetComponent<Seeker>();
         fieldofview.SetFoV(fov);
         fieldofview.SetViewDistance(viewDistance);
@@ -60,6 +65,20 @@ public class Enemy : MonoBehaviour
             ChangeViewDistance(followingViewDistance);
         }
         else ChangeViewDistance(viewDistance);
+
+        if(fieldofview.IsLookingAtPlayer() == true && attackRange >= Vector3.Distance(gameObject.transform.position, player.gameObject.transform.position))
+        {
+            if (isAttacking == false)
+            {
+                isAttacking = true;
+                StartCoroutine(AttackPlayer(attackSpeed));
+            }
+        }
+        else if(attackRange < Vector3.Distance(gameObject.transform.position, player.gameObject.transform.position))
+        {
+            isAttacking = false;
+        }
+
     }
 
      private void FindPlayer()
@@ -84,7 +103,10 @@ public class Enemy : MonoBehaviour
            }
      }
 
-  
+  private void DealDamage()
+    {
+        playerScript.TakeDamage(damage);
+    }
 
 
     public void OnPathComplete(Path p)
@@ -238,6 +260,18 @@ public class Enemy : MonoBehaviour
 
             yield return new WaitForSeconds(interval);
         }
+    }
+
+    IEnumerator AttackPlayer(float attackSpeed)
+    {
+        while (isAttacking == true)
+        {
+            DealDamage();
+            Debug.Log("HITTING PLAYER");
+            yield return new WaitForSeconds(attackSpeed);
+
+        }
+        
     }
 
     void Patrol()

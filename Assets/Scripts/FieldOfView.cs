@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-    [SerializeField]
-    LayerMask layerMask;
-    [SerializeField]
-    LayerMask layerMask2;
+
     private Mesh mesh;
     Vector3 origin = Vector3.zero;
     private float startingAngle;
     private float fov;
     private float viewDistance;
-    private float viewDistance2 = 5;
     int rayCount = 50;
     private bool sawPlayer, seeingPlayer;
 
-    private float distanceToPlayer, distanceToObejctive;
 
     private bool targetingPlayer = false;
     private void Start()
