@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
     private Player playerScript;
 
     //Enemy statistic variables
-    private int healthPoints;
+    public int healthPoints=3;
     private int damage = 1;
     private float attackRange = 0.2f;
     private float attackSpeed = 1f;
@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-     private void FindPlayer()
+    private void FindPlayer()
      {
          if(fieldofview.IsLookingAtPlayer()==true)
           {
@@ -98,20 +98,28 @@ public class Enemy : MonoBehaviour
                  wasPlayerSeen = false;
                  isTurningAround = true;
                  StartCoroutine(LookAround(fieldofview, 0.01f, 360));
-                 Debug.Log("Patrze naokoło");
              }
            }
      }
 
-  private void DealDamage()
+    private void DealDamage()
     {
         playerScript.TakeDamage(damage);
+    }
+
+    public void TakeDamage(int value)
+    {
+        healthPoints -= value;
+        if (healthPoints <= 0)
+        {
+            Destroy(fieldofview.gameObject);
+            Destroy(gameObject);
+        }
     }
 
 
     public void OnPathComplete(Path p)
     {
-        Debug.Log("Yay, we got a path back. Did it have an error? " + p.error);
 
         if (!p.error)
         {
@@ -152,7 +160,6 @@ public class Enemy : MonoBehaviour
                     // Set a status variable to indicate that the agent has reached the end of the path.
                     // You can use this to trigger some special code if your game requires that.
                     reachedEndOfPath = true;
-                    Debug.Log(reachedEndOfPath);
                     
                     
                     break;
@@ -205,7 +212,6 @@ public class Enemy : MonoBehaviour
                     // Set a status variable to indicate that the agent has reached the end of the path.
                     // You can use this to trigger some special code if your game requires that.
                     reachedEndOfPath = true;
-                    Debug.Log(reachedEndOfPath);
                     if (patrolWaypoints2 < 2)
                     {
                         patrolWaypoints2++;
@@ -267,7 +273,6 @@ public class Enemy : MonoBehaviour
         while (isAttacking == true)
         {
             DealDamage();
-            Debug.Log("HITTING PLAYER");
             yield return new WaitForSeconds(attackSpeed);
 
         }
@@ -279,4 +284,6 @@ public class Enemy : MonoBehaviour
         MoveTowardsPoint(PatrolPoints[patrolWaypoint].position, patrolWaypoint, out patrolWaypoint);
     }
     
+
+
 }

@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     private int healthPoints = 5;
     private int damage = 1;
+    private float attackRange = 0.1f;
+    private float attackSpeed = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -33,4 +35,16 @@ public class Player : MonoBehaviour
     {
         return damage;
     }
+
+    public float GetAttackRange()
+    {
+        return attackRange;
+    }
+
+    public float GetAttackSpeed()
+    {
+        return attackSpeed;
+    }
+
+
 }

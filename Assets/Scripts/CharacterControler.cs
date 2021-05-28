@@ -5,11 +5,18 @@ using UnityEngine;
 public class CharacterControler : MonoBehaviour
 {
 
+
     [SerializeField]
-    private FieldOfView   fov;
+    private Player player;
+
+    [SerializeField] private GameObject prefabMeleeAttack;
+    private MeleeAttack meleeAttack;
+    bool canAttack = true;
 
     private float horizontal, vertical;
     float speed = 1f;
+
+    Vector3 mousePosition;
 
     private void Start()
     {
@@ -18,17 +25,14 @@ public class CharacterControler : MonoBehaviour
     private void Update()
     {
         Movement();
-        SetFoV();
-        Vector3 mousePosition = GetMouseWorldPosition();
-
-        Vector3 aimDirection = (mousePosition - transform.position).normalized;
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        fov.SetAimDirection(angle);
-
-        if (Input.GetMouseButtonDown(0))
+        if (canAttack == true)
         {
-            Attack();
+            CheckForAttack();
         }
+        
+
+        
+
     }
 
     void Movement()
@@ -40,41 +44,81 @@ public class CharacterControler : MonoBehaviour
         transform.Translate(new Vector2(horizontal, vertical) * speed * Time.deltaTime);
     }
 
-    void SetFoV()
+
+    void CheckForAttack()
     {
-        fov.SetOrigin(transform.position);
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            Attack(-1, 1);
+            canAttack = false;
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            Attack(1, 1);
+            canAttack = false;
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Attack(1, -1);
+            canAttack = false;
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Attack(-1, -1);
+            canAttack = false;
+        }
     }
 
-    
-    Vector3 GetMouseWorldPosition()
+    void Attack(int attackDirection, int orientatnion)
     {
-        Vector3 vec = GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
-        vec.z = 0f;
-        return vec;
-    }
-    Vector3 GetMouseWorldPositionWithZ()
-    {
-        return GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
-    }
-     Vector3 GetMouseWorldPositionWithZ(Camera worldCamera)
-    {
-        return GetMouseWorldPositionWithZ(Input.mousePosition, worldCamera);
-    }
-     Vector3 GetMouseWorldPositionWithZ(Vector3 screenPosition, Camera worldCamera)
-    {
-        Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
-        return worldPosition;
-    }
 
-    void Attack()
-    {
-        //attack animatiom
-        Debug.Log("Im Attacking");
+        
+
+        if (orientatnion > 0)
+        {
+            Vector3 attackDir = new Vector3(transform.position.x + attackDirection*player.GetAttackRange(), transform.position.y, -5);
+            if (attackDirection > 0)
+            {
+                meleeAttack = Instantiate(prefabMeleeAttack, attackDir, Quaternion.Euler(0f, 0f, -24.053f)).GetComponent<MeleeAttack>();
+            }
+            else
+            {
+                meleeAttack = Instantiate(prefabMeleeAttack, attackDir, Quaternion.Euler(0f, 180f, -24.053f)).GetComponent<MeleeAttack>();
+            }
+
+            
+        }
+        else
+        {
+            Vector3 attackDir = new Vector3(transform.position.x, transform.position.y + attackDirection * player.GetAttackRange(), -5);
+            if (attackDirection > 0)
+            {
+                meleeAttack = Instantiate(prefabMeleeAttack, attackDir, Quaternion.Euler(0f, 0f, 90f - 24.053f)).GetComponent<MeleeAttack>();
+            }
+            else
+            {
+                meleeAttack = Instantiate(prefabMeleeAttack, attackDir, Quaternion.Euler(0f, 0f, -90f - 24.053f)).GetComponent<MeleeAttack>();
+            }
+            
+            
+        }
+       
+
+         Debug.Log("Im Attacking");
+        StartCoroutine(AttackSpeedCheck());
+        
     }
 
     public Vector3 GetPlayerPosition()
     {
         return transform.position;
+    }
+
+    IEnumerator AttackSpeedCheck()
+    {
+        
+        yield return new WaitForSeconds(1/player.GetAttackSpeed());
+        canAttack = true;
     }
 
 }
