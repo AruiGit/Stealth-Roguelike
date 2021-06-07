@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CharacterControler : MonoBehaviour
 {
-
+    public Animator playerAnimator;
+    public SpriteRenderer playerSprite;
 
     [SerializeField]
     private Player player;
@@ -14,17 +15,22 @@ public class CharacterControler : MonoBehaviour
     bool canAttack = true;
 
     private float horizontal, vertical;
-    float speed = 1f;
+    bool isAttacking = false;
 
     Vector3 mousePosition;
 
     private void Start()
     {
+        
     }
 
     private void Update()
     {
-        Movement();
+        if (isAttacking == false)
+        {
+            Movement();
+        }
+        
         if (canAttack == true)
         {
             CheckForAttack();
@@ -41,7 +47,33 @@ public class CharacterControler : MonoBehaviour
         vertical = Input.GetAxis("Vertical");
 
 
-        transform.Translate(new Vector2(horizontal, vertical) * speed * Time.deltaTime);
+        transform.Translate(new Vector2(horizontal, vertical) * player.GetMovementSpeed() * Time.deltaTime);
+        if(horizontal!=0 || vertical != 0)
+        {
+            playerAnimator.SetBool("isWalking", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isWalking", false);
+        }
+        if (horizontal < 0)
+        {
+            playerSprite.transform.rotation = Quaternion.Euler(0, 0, -180);
+        }
+        else if (horizontal > 0)
+        {
+            playerSprite.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        else if (vertical < 0)
+        {
+            playerSprite.transform.rotation = Quaternion.Euler(0, 0, -90);
+        }
+        else if (vertical > 0)
+        {
+            playerSprite.transform.rotation = Quaternion.Euler(0, 0, 90);
+        }
+        
     }
 
 
@@ -49,21 +81,25 @@ public class CharacterControler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            isAttacking = true;
             Attack(-1, 1);
             canAttack = false;
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            isAttacking = true;
             Attack(1, 1);
             canAttack = false;
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            isAttacking = true;
             Attack(1, -1);
             canAttack = false;
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            isAttacking = true;
             Attack(-1, -1);
             canAttack = false;
         }
@@ -72,7 +108,8 @@ public class CharacterControler : MonoBehaviour
     void Attack(int attackDirection, int orientatnion)
     {
 
-        
+        playerAnimator.SetBool("isAttacking",true);
+        playerAnimator.SetFloat("meleeAttackSpeed", player.GetAttackSpeed());
 
         if (orientatnion > 0)
         {
@@ -116,9 +153,18 @@ public class CharacterControler : MonoBehaviour
 
     IEnumerator AttackSpeedCheck()
     {
-        
+        StartCoroutine(Attacking());
         yield return new WaitForSeconds(1/player.GetAttackSpeed());
         canAttack = true;
     }
+
+    IEnumerator Attacking()
+    {
+        yield return new WaitForSeconds(player.GetAttackTime());
+        playerAnimator.SetBool("isAttacking",false);
+        isAttacking = false;
+    }
+
+    
 
 }

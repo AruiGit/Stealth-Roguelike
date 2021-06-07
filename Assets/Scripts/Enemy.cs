@@ -113,6 +113,7 @@ public class Enemy : MonoBehaviour
         if (healthPoints <= 0)
         {
             Destroy(fieldofview.gameObject);
+            playerScript.EnemyKilled();
             Destroy(gameObject);
         }
     }
