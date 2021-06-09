@@ -10,6 +10,8 @@ public class Turret : MonoBehaviour
     bool canShoot = true;
     float bulletSpeed = 3f;
     float attackSpeed = 3f;
+    int damage = 1;
+
     public Transform bulletSpawn, bulletSpawn1;
     Vector3 bulletRotation;
 
@@ -82,12 +84,14 @@ public class Turret : MonoBehaviour
         {
             GameObject newBullet = Instantiate(bulletPrefab, bulletSpawn.position,bulletSpawn.rotation);
             newBullet.GetComponent<Rigidbody2D>().AddForce(newBullet.transform.up * bulletSpeed, ForceMode2D.Impulse);
+            newBullet.GetComponent<Bullet>().SetDamage(damage);
             cannonSwitch = false;
         }
         else
         {
             GameObject newBullet = Instantiate(bulletPrefab, bulletSpawn1.position, bulletSpawn1.rotation);
             newBullet.GetComponent<Rigidbody2D>().AddForce(newBullet.transform.up * bulletSpeed, ForceMode2D.Impulse);
+            newBullet.GetComponent<Bullet>().SetDamage(damage);
             cannonSwitch = true;
         }
          // We use the right (or up in some cases) transform because forward in a 2D space is into the screen.
