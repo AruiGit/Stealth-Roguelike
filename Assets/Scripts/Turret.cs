@@ -8,9 +8,10 @@ public class Turret : MonoBehaviour
     bool enemyVisible;
     bool isTurretON = true;
     bool canShoot = true;
-    float bulletSpeed = 1f;
-    float attackSpeed = 1f;
+    float bulletSpeed = 3f;
+    float attackSpeed = 3f;
     public Transform bulletSpawn, bulletSpawn1;
+    Vector3 bulletRotation;
 
 
     public GameObject bulletPrefab;
@@ -49,6 +50,7 @@ public class Turret : MonoBehaviour
             {
                 enemyVisible = true;
                 transform.up = collision.gameObject.transform.position - transform.position;
+                bulletRotation = transform.up;
                 Sprite sprite = GetComponent<SpriteRenderer>().sprite = turretON;
             }
             else
@@ -56,6 +58,14 @@ public class Turret : MonoBehaviour
                 enemyVisible = false;
                 
             }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && isTurretON == true)
+        {
+            enemyVisible = false;
         }
     }
 
@@ -70,18 +80,18 @@ public class Turret : MonoBehaviour
         canShoot = false;
         if (cannonSwitch == true)
         {
-            GameObject newBullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-            newBullet.GetComponent<Rigidbody2D>().AddForce(newBullet.transform.right * bulletSpeed, ForceMode2D.Impulse);
+            GameObject newBullet = Instantiate(bulletPrefab, bulletSpawn.position,bulletSpawn.rotation);
+            newBullet.GetComponent<Rigidbody2D>().AddForce(newBullet.transform.up * bulletSpeed, ForceMode2D.Impulse);
             cannonSwitch = false;
         }
         else
         {
             GameObject newBullet = Instantiate(bulletPrefab, bulletSpawn1.position, bulletSpawn1.rotation);
-            newBullet.GetComponent<Rigidbody2D>().AddForce(newBullet.transform.right * bulletSpeed, ForceMode2D.Impulse);
+            newBullet.GetComponent<Rigidbody2D>().AddForce(newBullet.transform.up * bulletSpeed, ForceMode2D.Impulse);
             cannonSwitch = true;
         }
          // We use the right (or up in some cases) transform because forward in a 2D space is into the screen.
-        yield return new WaitForSeconds(attackSpeed);
+        yield return new WaitForSeconds(1/attackSpeed);
         Debug.Log("after waitforsecnd");
         canShoot = true;
     }
