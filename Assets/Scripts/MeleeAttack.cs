@@ -45,7 +45,7 @@ public class MeleeAttack : MonoBehaviour
     {
 
         Debug.Log("Trigger enter");
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))
         {
 
             enemy = collision.GetComponent<Enemy>();

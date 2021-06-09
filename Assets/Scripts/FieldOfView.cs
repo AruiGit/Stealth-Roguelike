@@ -48,7 +48,7 @@ public class FieldOfView : MonoBehaviour
             Vector3 vertex;
             RaycastHit2D raycastHit2D;
 
-            if (this.gameObject.tag == "Enemy")
+            if (this.gameObject.CompareTag("Enemy"))
             {
                 raycastHit2D = Physics2D.Raycast(origin, VectorFromAngle(angle), viewDistance, LayerMask.GetMask("Mask", "Objects"));
             }
@@ -81,7 +81,7 @@ public class FieldOfView : MonoBehaviour
             {
 
                 vertex = raycastHit2D.point;
-                if (raycastHit2D.transform.tag == "Player")
+                if (raycastHit2D.collider.gameObject.CompareTag("Player"))
                 {
                     sawPlayer = true;
                     seeingPlayer = true;

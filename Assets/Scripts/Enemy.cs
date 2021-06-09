@@ -31,13 +31,13 @@ public class Enemy : MonoBehaviour
     private Player playerScript;
 
     //Enemy statistic variables
-    public int healthPoints=3;
+    public int healthPoints = 3;
     private int damage = 1;
     private float attackRange = 0.2f;
     private float attackSpeed = 1f;
 
-    private bool isAttacking=false;
-   
+    private bool isAttacking = false;
+
 
     private void Start()
     {
@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
         seeker = GetComponent<Seeker>();
         fieldofview.SetFoV(fov);
         fieldofview.SetViewDistance(viewDistance);
-        
+
     }
 
     private void Update()
@@ -66,7 +66,7 @@ public class Enemy : MonoBehaviour
         }
         else ChangeViewDistance(viewDistance);
 
-        if(fieldofview.IsLookingAtPlayer() == true && attackRange >= Vector3.Distance(gameObject.transform.position, player.gameObject.transform.position))
+        if (fieldofview.IsLookingAtPlayer() == true && attackRange >= Vector3.Distance(gameObject.transform.position, player.gameObject.transform.position))
         {
             if (isAttacking == false)
             {
@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour
                 StartCoroutine(AttackPlayer(attackSpeed));
             }
         }
-        else if(attackRange < Vector3.Distance(gameObject.transform.position, player.gameObject.transform.position))
+        else if (attackRange < Vector3.Distance(gameObject.transform.position, player.gameObject.transform.position))
         {
             isAttacking = false;
         }
@@ -82,25 +82,25 @@ public class Enemy : MonoBehaviour
     }
 
     private void FindPlayer()
-     {
-         if(fieldofview.IsLookingAtPlayer()==true)
-          {
-                 lastKnowPlayerPosition = player.transform.position;
-                 MoveTowardsPoint(player.transform.position);
-                 wasPlayerSeen = true;
+    {
+        if (fieldofview.IsLookingAtPlayer() == true)
+        {
+            lastKnowPlayerPosition = player.transform.position;
+            MoveTowardsPoint(player.transform.position);
+            wasPlayerSeen = true;
 
-          }
-           else if (wasPlayerSeen == true && fieldofview.IsLookingAtPlayer() == false)
-           {
-               MoveTowardsPoint(lastKnowPlayerPosition);
-             if (reachedEndOfPath == true)
-             {
-                 wasPlayerSeen = false;
-                 isTurningAround = true;
-                 StartCoroutine(LookAround(fieldofview, 0.01f, 360));
-             }
-           }
-     }
+        }
+        else if (wasPlayerSeen == true && fieldofview.IsLookingAtPlayer() == false)
+        {
+            MoveTowardsPoint(lastKnowPlayerPosition);
+            if (reachedEndOfPath == true)
+            {
+                wasPlayerSeen = false;
+                isTurningAround = true;
+                StartCoroutine(LookAround(fieldofview, 0.01f, 360));
+            }
+        }
+    }
 
     private void DealDamage()
     {
@@ -128,7 +128,7 @@ public class Enemy : MonoBehaviour
             // Reset the waypoint counter so that we start to move towards the first point in the path
             currentWaypoint = 0;
         }
-        
+
     }
 
     void MoveTowardsPoint(Vector3 pathPosition)
@@ -136,7 +136,7 @@ public class Enemy : MonoBehaviour
         fieldofview.SetAimDirection(GetEnemyDirection());
 
         seeker.StartPath(transform.position, pathPosition, OnPathComplete);
-        
+
 
 
 
@@ -145,7 +145,7 @@ public class Enemy : MonoBehaviour
         float distanceToWaypoint;
         while (!reachedEndOfPath)
         {
-            
+
             // If you want maximum performance you can check the squared distance instead to get rid of a
             // square root calculation. But that is outside the scope of this tutorial.
             distanceToWaypoint = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
@@ -161,8 +161,8 @@ public class Enemy : MonoBehaviour
                     // Set a status variable to indicate that the agent has reached the end of the path.
                     // You can use this to trigger some special code if your game requires that.
                     reachedEndOfPath = true;
-                    
-                    
+
+
                     break;
                 }
             }
@@ -172,11 +172,11 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if(currentWaypoint!= 0)
+        if (currentWaypoint != 0)
         {
             dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
         }
-        
+
         Vector3 velocity = dir * speed;
         transform.position += velocity * Time.deltaTime;
 
@@ -204,7 +204,7 @@ public class Enemy : MonoBehaviour
             if (distanceToWaypoint < nextWaypointDistance)
             {
                 // Check if there is another waypoint or if we have reached the end of the path
-                if (currentWaypoint + 2 < path.vectorPath.Count)
+                if (currentWaypoint + 1 < path.vectorPath.Count)
                 {
                     currentWaypoint++;
                 }
@@ -213,12 +213,23 @@ public class Enemy : MonoBehaviour
                     // Set a status variable to indicate that the agent has reached the end of the path.
                     // You can use this to trigger some special code if your game requires that.
                     reachedEndOfPath = true;
-                    if (patrolWaypoints2 < 2)
+
+                    Debug.Log(patrolWaypoints2 + " CO DO KURWY");
+
+                    if (patrolWaypoints2 == 0)
                     {
-                        patrolWaypoints2++;
+                        patrolWaypoints2 = 1;
                     }
-                    else patrolWaypoints2 = 0;
+                    else if(patrolWaypoints2 == 1)
+                    {
+                        patrolWaypoints2 = 2;
+                    }
+                    else if (patrolWaypoints2 == 2)
+                    {
+                        patrolWaypoints2 = 0;
+                    }
                     
+
 
 
                     break;
@@ -262,7 +273,7 @@ public class Enemy : MonoBehaviour
         for (int i = 0; i < invokeCount; i++)
         {
             if (fieldofview.IsLookingAtPlayer() == true) yield break;
-            fieldOfView.SetAimDirection(GetEnemyDirection(),i);
+            fieldOfView.SetAimDirection(GetEnemyDirection(), i);
             if (invokeCount - 1 == i) isTurningAround = false;
 
             yield return new WaitForSeconds(interval);
@@ -277,14 +288,14 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(attackSpeed);
 
         }
-        
+
     }
 
     void Patrol()
     {
         MoveTowardsPoint(PatrolPoints[patrolWaypoint].position, patrolWaypoint, out patrolWaypoint);
     }
-    
+
 
 
 }
