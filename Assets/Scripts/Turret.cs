@@ -100,4 +100,9 @@ public class Turret : MonoBehaviour
         canShoot = true;
     }
 
+    public void TurretOnOff()
+    {
+        isTurretON = !isTurretON;
+    }
+
 }
