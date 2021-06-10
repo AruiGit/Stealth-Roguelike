@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5046160917722679763}
   - component: {fileID: 3553318176344353225}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +92,6 @@ GameObject:
   - component: {fileID: 2831972884264443388}
   - component: {fileID: 6387967092793367020}
   - component: {fileID: 1849269071837244635}
-  - component: {fileID: 6783331054148624546}
   m_Layer: 0
   m_Name: Laser_1
   m_TagString: Untagged
@@ -153,20 +152,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6783331054148624546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3963695326544487768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0da7b1ab2a063e40943b1b1f23d919e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 3719630964710704808}
-  capsule: {fileID: 6457311610062685434}
 --- !u!1 &6457311610062685434
 GameObject:
   m_ObjectHideFlags: 0

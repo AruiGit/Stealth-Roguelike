@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
 
     //Stats
-    [SerializeField]private int healthPoints = 5;
+    private int healthPoints = 5;
     private int damage = 1;
     private float attackRange = 0.1f;
     private float attackSpeed = 1;
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int value)
     {
-        healthPoints -= value;
+        healthPoints = -value;
     }
 
     public int GetDamage()

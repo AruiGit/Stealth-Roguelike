@@ -4,45 +4,15 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    Player player;
-    public GameObject sprite, capsule;
-    int damage;
-
+    // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player_Character").GetComponent<Player>();
+        
     }
 
+    // Update is called once per frame
     void Update()
     {
         
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            player.TakeDamage(damage);
-            DestroyAll();
-        }
-        else if (!collision.gameObject.CompareTag("Enemy"))
-        {
-            DestroyAll();
-        }
-        
-    }
-
-    void DestroyAll()
-    {
-        Destroy(capsule);
-        Destroy(sprite);
-        Destroy(gameObject);
-    }
-
-    public void SetDamage(int damage)
-    {
-        this.damage = damage;
     }
 }
